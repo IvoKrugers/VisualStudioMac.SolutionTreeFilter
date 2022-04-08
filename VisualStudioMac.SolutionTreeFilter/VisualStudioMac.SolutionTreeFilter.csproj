@@ -1,0 +1,23 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net471</TargetFramework>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="MonoDevelop.Addins" Version="0.4.7" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Update="VisualStudioMac.SolutionTreeFilter.Gui\FilterPadWidget.UI.cs">
+      <DependentUpon>FilterPadWidget.cs</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <!-- <ItemGroup>
+    <None Remove="Cache\" />
+    <None Remove="CommandHandlers\Editor\" />
+    <None Remove="CommandHandlers\Node\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Cache\" />
+    <Folder Include="CommandHandlers\Editor\" />
+    <Folder Include="CommandHandlers\Node\" />
+  </ItemGroup> -->
+</Project>

@@ -1,0 +1,37 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ExtensionModel>
+	<Runtime>
+		<Import assembly="VisualStudioMac.SolutionTreeFilter.dll" />
+	</Runtime>
+
+	<Extension path="/MonoDevelop/Ide/StartupHandlers">
+		<Class class="VisualStudioMac.SolutionTreeFilter.CommandHandlers.StartupCommandHandler" />
+	</Extension>
+
+	<Extension path="/MonoDevelop/Ide/Pads">
+		<Pad id="VisualStudioMac.SolutionTreeFilter.FilterPad" _label="Solution Tree Filter" class="VisualStudioMac.SolutionTreeFilter.Gui.FilterPad" defaultStatus="Dockable" defaultPlacement="ProjectPad/bottom" defaultLayout="*" />
+	</Extension>
+
+	<Extension path="/MonoDevelop/Ide/Commands">
+		<Category _name="SolutionTree Filter" id="SolutionTreeFilter">
+			<Command
+				id="VisualStudioMac.SolutionTreeFilter.CommandHandlers.Editor.PinCommandHandler"
+				_description="Pin or Unpin a document to the Solution Tree"
+				_label="-this will be changed dynamically-"/>
+		</Category>
+	</Extension>
+
+	<Extension path="/MonoDevelop/TextEditor/ContextMenu/Editor">
+		<Condition id="FileType" fileExtensions=".cs">
+			<CommandItem id="VisualStudioMac.SolutionTreeFilter.CommandHandlers.Editor.PinCommandHandler" />
+		</Condition>
+	</Extension>
+
+	<Extension path="/MonoDevelop/Ide/Pads/ProjectPad">
+		<NodeBuilder class="VisualStudioMac.SolutionTreeFilter.NodeBuilderExtensions.ProjectNodeBuilderExtension" />
+		<NodeBuilder class="VisualStudioMac.SolutionTreeFilter.NodeBuilderExtensions.FolderNodeBuilderExtension" />
+		<NodeBuilder class="VisualStudioMac.SolutionTreeFilter.NodeBuilderExtensions.FileNodeBuilderExtension" />
+		<NodeBuilder class="VisualStudioMac.SolutionTreeFilter.NodeBuilderExtensions.SpecialNodeBuilderExtension" />
+	</Extension>
+	
+</ExtensionModel>
