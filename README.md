@@ -1,0 +1,1 @@
+# VisualStudioMac.SolutionTreeFilter
