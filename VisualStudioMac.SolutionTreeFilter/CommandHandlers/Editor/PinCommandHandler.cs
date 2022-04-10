@@ -7,7 +7,7 @@ using VisualStudioMac.SolutionTreeFilter.Helpers;
 
 namespace VisualStudioMac.SolutionTreeFilter.CommandHandlers.Editor
 {
-    public class EditorPinCommandHandler: CommandHandler
+    public class PinCommandHandler : CommandHandler
     {
         protected override void Update(CommandInfo info)
         {

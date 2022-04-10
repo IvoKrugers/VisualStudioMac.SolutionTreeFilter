@@ -4,9 +4,9 @@ using MonoDevelop.Ide;
 using VisualStudioMac.SolutionTreeFilter.Gui;
 using VisualStudioMac.SolutionTreeFilter.Helpers;
 
-namespace VisualStudioMac.SolutionTreeFilter.CommandHandlers
+namespace VisualStudioMac.SolutionTreeFilter.CommandHandlers.Node
 {
-    public class FileNodeContextMenuUnPinAllCommandHandler : CommandHandler
+    public class UnPinAllCommandHandler : CommandHandler
     {
         protected override void Update(CommandInfo info)
         {
@@ -22,7 +22,7 @@ namespace VisualStudioMac.SolutionTreeFilter.CommandHandlers
                 return;
 
             Runtime.RunInMainThread(((FilterPadWidget)pad.Control).FilterSolutionPad);
-           ;
+            ;
         }
     }
 }

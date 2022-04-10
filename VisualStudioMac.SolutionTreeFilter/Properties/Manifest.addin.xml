@@ -9,15 +9,33 @@
 	</Extension>
 
 	<Extension path="/MonoDevelop/Ide/Pads">
-		<Pad id="VisualStudioMac.SolutionTreeFilter.FilterPad" _label="Solution Tree Filter" class="VisualStudioMac.SolutionTreeFilter.Gui.FilterPad" defaultStatus="Dockable" defaultPlacement="ProjectPad/bottom" defaultLayout="*" />
+		<Pad id="VisualStudioMac.SolutionTreeFilter.FilterPad"
+				_label="Solution Tree Filter"
+				class="VisualStudioMac.SolutionTreeFilter.Gui.FilterPad"
+				defaultStatus="Dockable"
+				defaultPlacement="ProjectPad/bottom"/>
+				<!--defaultLayout="*" />-->
 	</Extension>
 
 	<Extension path="/MonoDevelop/Ide/Commands">
 		<Category _name="SolutionTree Filter" id="SolutionTreeFilter">
 			<Command
 				id="VisualStudioMac.SolutionTreeFilter.CommandHandlers.Editor.PinCommandHandler"
+				defaultHandler="VisualStudioMac.SolutionTreeFilter.CommandHandlers.Editor.PinCommandHandler"
 				_description="Pin or Unpin a document to the Solution Tree"
 				_label="-this will be changed dynamically-"/>
+
+			<Command
+					id="VisualStudioMac.SolutionTreeFilter.CommandHandlers.Node.PinCommandHandler"
+					defaultHandler="VisualStudioMac.SolutionTreeFilter.CommandHandlers.Node.PinCommandHandler"
+					_description="Pin or Unpin a document to the Solution Tree"
+					_label="-this will be changed dynamically-"/>
+
+			<Command
+					id="VisualStudioMac.SolutionTreeFilter.CommandHandlers.Node.UnPinAllCommandHandler"
+					defaultHandler="VisualStudioMac.SolutionTreeFilter.CommandHandlers.Node.UnPinAllCommandHandler"
+					_description="Unpin all documents from the Solution Tree"
+					_label="Unpin all documents"/>
 		</Category>
 	</Extension>
 
@@ -32,6 +50,25 @@
 		<NodeBuilder class="VisualStudioMac.SolutionTreeFilter.NodeBuilderExtensions.FolderNodeBuilderExtension" />
 		<NodeBuilder class="VisualStudioMac.SolutionTreeFilter.NodeBuilderExtensions.FileNodeBuilderExtension" />
 		<NodeBuilder class="VisualStudioMac.SolutionTreeFilter.NodeBuilderExtensions.SpecialNodeBuilderExtension" />
+	</Extension>
+
+	<Extension path="/MonoDevelop/Ide/ContextMenu/ProjectPad">
+		<Condition id="ItemType" value="MonoDevelop.Projects.ProjectFile">
+			<CommandItem id="VisualStudioMac.SolutionTreeFilter.CommandHandlers.Node.PinCommandHandler" />
+			<CommandItem id="VisualStudioMac.SolutionTreeFilter.CommandHandlers.Node.UnPinAllCommandHandler" />
+		</Condition>
+		<Condition id="ItemType" value="MonoDevelop.Projects.Solution">
+            <CommandItem id="VisualStudioMac.SolutionTreeFilter.CommandHandlers.Node.UnPinAllCommandHandler" />
+        </Condition>
+		<Condition id="ItemType" value="MonoDevelop.Projects.SolutionFolder">
+            <CommandItem id="VisualStudioMac.SolutionTreeFilter.CommandHandlers.Node.UnPinAllCommandHandler" />
+        </Condition>
+		<Condition id="ItemType" value="MonoDevelop.Projects.Project">
+            <CommandItem id="VisualStudioMac.SolutionTreeFilter.CommandHandlers.Node.UnPinAllCommandHandler" />
+        </Condition>
+		<!--<Condition id="ItemType" value="MonoDevelop.Projects.IFolderItem">
+            <CommandItem id="VisualStudioMac.SolutionTreeFilter.CommandHandlers.Node.UnPinAllCommandHandler" />
+        </Condition>-->
 	</Extension>
 	
 </ExtensionModel>

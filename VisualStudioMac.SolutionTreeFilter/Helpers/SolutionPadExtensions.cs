@@ -42,7 +42,7 @@ namespace VisualStudioMac.SolutionTreeFilter.Helpers
         {
             var node = pad.Controller.GetSelectedNode();
             pad.GetTreeView().RefreshNode(node);
-            pad.Controller.RefreshTree();
+            //TODO uncomment     pad.Controller.RefreshTree();
         }
     }
 }

@@ -17,7 +17,10 @@ namespace VisualStudioMac.SolutionTreeFilter.Gui
         public FilterPadWidget()
         {
             Build();
-            Show();
+            //Show();
+
+            //HeightRequest = 130;
+            //MinHeight = 130;
 
             filterEntry.Changed += FilterEntry_Changed; ;
             filterClearButton.Clicked += FilterClearButton_Clicked;
@@ -117,7 +120,9 @@ namespace VisualStudioMac.SolutionTreeFilter.Gui
                 ctx.AutoPulse = true;
                 ctx.ShowMessage("Filtering...");
                 ctx.Pulse();
-                IdeApp.Workbench.StatusBar.ShowMessage("Filtering...");
+                ctx.BeginProgress("Tree filtering...");
+
+                //IdeApp.Workbench.StatusBar.ShowMessage("Filtering......");
 
                 EssentialProperties.SolutionFilter = filterEntry.Text;
 
@@ -126,23 +131,27 @@ namespace VisualStudioMac.SolutionTreeFilter.Gui
                     ExpandOnlyCSharpProjects();
                     return;
                 }
-
+                ctx.SetProgressFraction(0.25);
                 var pad = (SolutionPad)IdeApp.Workbench.Pads.SolutionPad.Content;
                 if (pad == null)
                     return;
 
                 EssentialProperties.IsRefreshingTree = true;
                 pad.CollapseTree();
+                ctx.SetProgressFraction(0.35);
                 var root = pad.GetRootNode();
                 if (root != null)
                 {
                     root.Expanded = false;
                     pad.GetTreeView().RefreshNode(root);
+                    ctx.SetProgressFraction(0.75);
                     root.Expanded = true;
                     SolutionTreeExtensions.ExpandAll(root);
+                    ctx.SetProgressFraction(1);
                 }
                 EssentialProperties.IsRefreshingTree = false;
             }
+            ctx.EndProgress();
             IdeApp.Workbench.StatusBar.ShowReady();
             //if (SolutionPad != null)
             //   SolutionPad.Window.IsWorking = false;
@@ -169,12 +178,12 @@ namespace VisualStudioMac.SolutionTreeFilter.Gui
             EssentialProperties.IsRefreshingTree = false;
         }
 
-        public void OnDocumentClosed()
-        {
-            if (IdeApp.Workbench.Documents is null || IdeApp.Workbench.Documents.Count == 0)
-            {
-                FilterSolutionPad();
-            }
-        }
+        //public void OnDocumentClosed()
+        //{
+        //    if (IdeApp.Workbench.Documents is null || IdeApp.Workbench.Documents.Count == 0)
+        //    {
+        //        FilterSolutionPad();
+        //    }
+        //}
     }
 }

@@ -1,5 +1,8 @@
 ﻿using System;
+using MonoDevelop.Ide;
+using MonoDevelop.Ide.Gui;
 using Xwt;
+using Xwt.Drawing;
 
 namespace VisualStudioMac.SolutionTreeFilter.Gui
 {
@@ -30,51 +33,86 @@ namespace VisualStudioMac.SolutionTreeFilter.Gui
 
         //private HBox hbox4;
 
-        //private Button ResetPinnedButton;
+        private Button resetPinnedButton;
 
         //private Button ReloadPropertiesButton;
 
-        //private Button PinOpenDocumentsButton;
+        private Button pinOpenDocumentsButton;
 
         protected virtual void Build()
         {
+            this.Name = "VisualStudioMac.SolutionTreeFilter.Gui.FilterPadWidget";
             HeightRequest = 130;
             MinHeight = 130;
             CanGetFocus = true;
-            this.Name = "VisualStudioMac.SolutionTreeFilter.Gui.FilterPadWidget";
+
+            //BackgroundColor = Color.FromBytes(37,40,45);
+            //BackgroundColor = Color.FromBytes(30, 30, 30);
 
             // Tree Filter Section
             var filterHBox = new HBox();
             var filterLabel = new Label("Tree Filter:")
             {
-                MarginLeft = 2,
-                MarginRight = 2,
+                MarginLeft = 6,
+                MarginRight = 0,
                 ExpandHorizontal = false,
-                HorizontalPlacement = WidgetPlacement.Start,
-            };
-
-            filterEntry = new TextEntry
-            {
-                TooltipText = "Separate by space, colon, semicolon",
-                CanGetFocus = true,
-                ExpandHorizontal = true,
                 HorizontalPlacement = WidgetPlacement.Fill,
                 VerticalPlacement = WidgetPlacement.Center,
-                Margin = 2,
-                MultiLine = true
             };
 
-            filterClearButton = new Button("Clear")
+            //filterEntry = new TextEntry
+            //{
+            //    TooltipText = "Search terms separated by space, colon, semicolon",
+            //    CanGetFocus = true,
+            //    ExpandHorizontal = true,
+            //    HorizontalPlacement = WidgetPlacement.Fill,
+            //    VerticalPlacement = WidgetPlacement.Fill,
+            //    Margin = 2,
+            //    MultiLine = false,
+            //    PlaceholderText = "Search Terms",
+            //};
+           
+
+            filterClearButton = new Button(ImageService.GetIcon("gtk-delete", Gtk.IconSize.Button))
             {
-                MarginLeft = 2,
+                MarginLeft = 0,
                 MarginRight = 2,
                 ExpandHorizontal = false,
                 HorizontalPlacement = WidgetPlacement.End,
+                VerticalPlacement = WidgetPlacement.Center,
+                Style = ButtonStyle.Borderless,
+                TooltipText = "Clear"
+            };
+            var refreshButton = new Button(ImageService.GetIcon("gtk-refresh", Gtk.IconSize.Menu))
+            {
+                MarginLeft = 0,
+                MarginRight = 2,
+                ExpandHorizontal = false,
+                HorizontalPlacement = WidgetPlacement.End,
+                VerticalPlacement = WidgetPlacement.Center,
+                Style = ButtonStyle.Borderless,
+                TooltipText = "Apply filter"
             };
 
             filterHBox.PackStart(filterLabel);
-            filterHBox.PackStart(filterEntry, true);
-            filterHBox.PackStart(filterClearButton);
+            //filterHBox.PackStart(filterEntry, true);
+            filterHBox.PackEnd(refreshButton);
+            filterHBox.PackEnd(filterClearButton);
+
+
+            filterEntry = new TextEntry
+            {
+                TooltipText = "Search terms separated by space, colon or semicolon",
+                CanGetFocus = true,
+                ExpandHorizontal = true,
+                HorizontalPlacement = WidgetPlacement.Fill,
+                VerticalPlacement = WidgetPlacement.Fill,
+                MarginLeft = 8,
+                MarginRight = 8,
+                Sensitive = true,
+                MultiLine = true,
+                PlaceholderText = "Search terms separated by space, colon or semicolon",
+            };
 
             // Expand projects section
             var expandHBox = new HBox();
@@ -88,31 +126,64 @@ namespace VisualStudioMac.SolutionTreeFilter.Gui
 
             projectsEntry = new TextEntry
             {
-                TooltipText = "Separate by space, colon, semicolon",
+                TooltipText = "Project search terms separate by space, colon or semicolon",
                 CanGetFocus = true,
                 Name = "projectsEntry",
                 ExpandHorizontal = true,
                 HorizontalPlacement = WidgetPlacement.Fill,
                 VerticalPlacement = WidgetPlacement.Center,
-                Margin = 2,
-                MultiLine = true
+                MarginLeft = 8,
+                MarginRight = 8,
+                MultiLine = false,
+                PlaceholderText= "Project search terms"
             };
 
-            applyButton = new Button("Apply")
+            applyButton = new Button(ImageService.GetIcon("gtk-refresh"))
             {
                 MarginLeft = 2,
                 MarginRight = 2,
                 ExpandHorizontal = false,
                 HorizontalPlacement = WidgetPlacement.End,
+                VerticalPlacement = WidgetPlacement.Center,
+                Style = ButtonStyle.Borderless
             };
 
             expandHBox.PackStart(expandLabel);
-            expandHBox.PackStart(projectsEntry, true);
-            expandHBox.PackStart(applyButton);
+            expandHBox.PackEnd(applyButton);
+
+
+            // Expand projects section
+            var buttonsHBox = new HBox();
+            pinOpenDocumentsButton = new Button(ImageService.GetIcon(Stock.PinDown, Gtk.IconSize.Button), "Pin All Open Documents in Workbench")
+            {
+                MarginLeft = 2,
+                MarginRight = 2,
+                ExpandHorizontal = false,
+                HorizontalPlacement = WidgetPlacement.Center,
+            };
+
+            resetPinnedButton = new Button(ImageService.GetIcon(Stock.PinUp, Gtk.IconSize.Button) ,"Unpin All")
+            {
+                MarginLeft = 2,
+                MarginRight = 2,
+                ExpandHorizontal = false,
+                HorizontalPlacement = WidgetPlacement.Center,
+            };
+
+            buttonsHBox.PackStart(pinOpenDocumentsButton);
+            buttonsHBox.PackStart(new FrameBox(), true, true);
+            buttonsHBox.PackEnd(resetPinnedButton);
 
             var mainVBox = new VBox();
             mainVBox.PackStart(filterHBox, false, false);
+            mainVBox.PackStart(filterEntry,true, true);
             mainVBox.PackStart(expandHBox, false, false);
+            mainVBox.PackStart(projectsEntry, false, true);
+            mainVBox.PackStart(buttonsHBox, false, false);
+            mainVBox.PackStart(new FrameBox(), true, true);
+            
+            //mainVBox.MinHeight = 130;
+            //mainVBox.HeightRequest = 130;
 
             //			this.label1.Name = "label1";
             //this.hbox1.Placements.Add(new BoxPlacement() { Child = label1 });

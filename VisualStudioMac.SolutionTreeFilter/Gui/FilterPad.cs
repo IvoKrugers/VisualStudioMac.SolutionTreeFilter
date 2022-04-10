@@ -7,6 +7,7 @@ using MonoDevelop.Components;
 using MonoDevelop.Ide;
 using MonoDevelop.Ide.Gui;
 using VisualStudioMac.SolutionTreeFilter.Helpers;
+using Xwt.Mac;
 
 namespace VisualStudioMac.SolutionTreeFilter.Gui
 {

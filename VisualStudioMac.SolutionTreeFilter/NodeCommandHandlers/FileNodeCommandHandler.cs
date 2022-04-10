@@ -21,9 +21,7 @@ namespace VisualStudioMac.SolutionTreeFilter.NodeCommandHandlers
                     EssentialProperties.AddPinnedDocument(f);
 
                 var pad = SolutionPadExtensions.GetSolutionPad();
-                if (pad == null)
-                    return;
-                pad.RefreshSelectedNode();
+                pad?.RefreshSelectedNode();
             }
         }
 

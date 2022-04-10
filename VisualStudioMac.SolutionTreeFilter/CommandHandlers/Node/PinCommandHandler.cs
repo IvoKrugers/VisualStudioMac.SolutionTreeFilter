@@ -6,7 +6,7 @@ using VisualStudioMac.SolutionTreeFilter.Helpers;
 
 namespace VisualStudioMac.SolutionTreeFilter.CommandHandlers.Node
 {
-    public class FileNodePinCommandHandler : CommandHandler
+    public class PinCommandHandler : CommandHandler
     {
         protected override void Update(CommandInfo info)
         {
