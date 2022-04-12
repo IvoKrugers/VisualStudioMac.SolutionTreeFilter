@@ -9,7 +9,7 @@ using VisualStudioMac.SolutionTreeFilter;
     Category = "IDE extensions"
 )]
 
-[assembly: AddinName("_Ivo: SolutionTree Filter")]
+[assembly: AddinName("_SolutionTree Filter")]
 [assembly: AddinDescription("This extension adds a Pad which allows you to filter the solution tree by multiple search terms.\n\nby Ivo Krugers")]
 [assembly: AddinAuthor("Ivo Krugers")]
 [assembly: AddinUrl("https://github.com/IvoKrugers")]

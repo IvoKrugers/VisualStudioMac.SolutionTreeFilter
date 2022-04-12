@@ -16,17 +16,21 @@ namespace VisualStudioMac.SolutionTreeFilter.Gui
 
         public FilterPadWidget()
         {
+            this.Name = "VisualStudioMac.SolutionTreeFilter.Gui.FilterPadWidget";
+
             Build();
             //Show();
 
             //HeightRequest = 130;
             //MinHeight = 130;
+            SetFocus();
+            MinHeight = 130;
 
             filterEntry.Changed += FilterEntry_Changed; ;
             filterClearButton.Clicked += FilterClearButton_Clicked;
             applyButton.Clicked += ApplyButton_Clicked;
         }
-
+        
         protected override void Dispose(bool disposing)
         {
             if (disposing)
@@ -60,7 +64,7 @@ namespace VisualStudioMac.SolutionTreeFilter.Gui
 
         private void FilterClearButton_Clicked(object sender, EventArgs e)
         {
-            throw new System.NotImplementedException();
+            filterEntry.Text = String.Empty;
         }
 
         private void FilterEntry_Changed(object sender, EventArgs e)

@@ -53,8 +53,6 @@ namespace VisualStudioMac.SolutionTreeFilter.Gui
             this.Window.Title = $"Solution Filter ({Constants.Version})";
         }
 
-        private bool isPinnedDocumentsDirty = false;
-
         void StartListeningForWorkspaceChanges()
         {
             IdeApp.Workbench.ActiveDocumentChanged += (sender, e) => StorePinnedDocuments(sender);
