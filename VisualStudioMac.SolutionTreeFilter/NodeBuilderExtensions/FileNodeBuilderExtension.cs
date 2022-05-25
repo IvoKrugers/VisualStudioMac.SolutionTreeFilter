@@ -40,7 +40,7 @@ namespace VisualStudioMac.SolutionTreeFilter.NodeBuilderExtensions
 
                 if (isObjectPinned)
                 {
-                    nodeInfo.Label = $"{nodeInfo.Label}{" [Pinned]"}";
+                    nodeInfo.SecondaryLabel = $"{nodeInfo.SecondaryLabel}{" [Pinned]"}";
                 }
             }
         }
