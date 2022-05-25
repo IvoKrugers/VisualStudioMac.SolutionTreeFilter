@@ -1,13 +1,26 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-  <PropertyGroup>
-    <TargetFramework>net471</TargetFramework>
-  </PropertyGroup>
-  <ItemGroup>
-    <PackageReference Include="MonoDevelop.Addins" Version="0.4.7" />
+    
+    <PropertyGroup>
+        <TargetFramework>net6.0</TargetFramework>
+        <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+        <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+        <OutputPath>.\bin</OutputPath>
+        <SupportedOSPlatformVersion>10.14</SupportedOSPlatformVersion>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <Compile Update="Gui\FilterPadWidget.UI.cs">
+            <DependentUpon>FilterPadWidget.cs</DependentUpon>
+        </Compile>
+    </ItemGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Microsoft.VisualStudioMac.Sdk" Version="17.0.0-preview.7955" />
+
+        <Reference Include="Xamarin.Mac">
+            <HintPath>\Applications\Visual Studio %28Preview%http://29.app\Contents\MonoBundle\Xamarin.Mac.dll</HintPath>
+            <Private>False</Private>
+        </Reference>
   </ItemGroup>
-  <ItemGroup>
-    <Compile Update="Gui\FilterPadWidget.UI.cs">
-      <DependentUpon>FilterPadWidget.cs</DependentUpon>
-    </Compile>
-  </ItemGroup>
+  
 </Project>

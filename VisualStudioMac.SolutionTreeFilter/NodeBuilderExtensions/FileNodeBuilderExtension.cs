@@ -3,6 +3,7 @@ using MonoDevelop.Ide.Gui.Components;
 using MonoDevelop.Projects;
 using VisualStudioMac.SolutionTreeFilter.Cache;
 using VisualStudioMac.SolutionTreeFilter.Helpers;
+using VisualStudioMac.SolutionTreeFilter.Helpers.ExtensionSettings;
 using VisualStudioMac.SolutionTreeFilter.NodeCommandHandlers;
 
 namespace VisualStudioMac.SolutionTreeFilter.NodeBuilderExtensions
@@ -19,7 +20,7 @@ namespace VisualStudioMac.SolutionTreeFilter.NodeBuilderExtensions
         {
             base.GetNodeAttributes(parentNode, dataObject, ref attributes);
 
-            if (EssentialProperties.SolutionFilterArray.Length == 0)
+            if (!FilterSettings.Initialized || FilterSettings.SolutionFilterArray.Length == 0)
                 return;
 
             if (dataObject is ProjectFile file)
@@ -35,7 +36,7 @@ namespace VisualStudioMac.SolutionTreeFilter.NodeBuilderExtensions
            
             if (dataObject is ProjectFile file)
             {
-                var isObjectPinned = EssentialProperties.IsPinned(file);
+                var isObjectPinned = FilterSettings.IsPinned(file);
 
                 if (isObjectPinned)
                 {

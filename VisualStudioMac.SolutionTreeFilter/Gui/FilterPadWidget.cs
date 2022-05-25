@@ -4,6 +4,7 @@ using MonoDevelop.Core;
 using MonoDevelop.Ide;
 using MonoDevelop.Ide.Gui.Pads;
 using VisualStudioMac.SolutionTreeFilter.Helpers;
+using VisualStudioMac.SolutionTreeFilter.Helpers.ExtensionSettings;
 using Xwt;
 
 namespace VisualStudioMac.SolutionTreeFilter.Gui
@@ -19,18 +20,53 @@ namespace VisualStudioMac.SolutionTreeFilter.Gui
             this.Name = "VisualStudioMac.SolutionTreeFilter.Gui.FilterPadWidget";
 
             Build();
-            //Show();
-
-            //HeightRequest = 130;
-            //MinHeight = 130;
             SetFocus();
             MinHeight = 130;
 
             filterEntry.Changed += FilterEntry_Changed; ;
             filterClearButton.Clicked += FilterClearButton_Clicked;
             applyButton.Clicked += ApplyButton_Clicked;
+            pinOpenDocumentsButton.Clicked += PinOpenDocumentsButton_Clicked;
+            resetPinnedButton.Clicked += ResetPinnedButton_Clicked;
+            doubleClickToPinCheckbutton.Clicked += DoubleClickToPinCheckbutton_Clicked;
         }
-        
+
+        private void DoubleClickToPinCheckbutton_Clicked(object sender, EventArgs e)
+        {
+            FilterSettings.DoubleClickToPin = doubleClickToPinCheckbutton.Active;
+        }
+
+        private void ResetPinnedButton_Clicked(object sender, EventArgs e)
+        {
+            try
+            {
+                FilterSettings.ClearPinnedDocuments();
+                FilterSolutionPad();
+            }
+            catch (Exception ex)
+            {
+                string msg = $"Error {ex.Message}";
+                MessageService.ShowError(msg);
+            }
+        }
+
+        private void PinOpenDocumentsButton_Clicked(object sender, EventArgs e)
+        {
+            try
+            {
+                foreach (var doc in IdeApp.Workbench.Documents)
+                {
+                    FilterSettings.AddPinnedDocument(doc);
+                }
+                FilterSolutionPad();
+            }
+            catch (Exception ex)
+            {
+                string msg = $"Error {ex.Message}";
+                MessageService.ShowError(msg);
+            }
+        }
+       
         protected override void Dispose(bool disposing)
         {
             if (disposing)
@@ -47,7 +83,7 @@ namespace VisualStudioMac.SolutionTreeFilter.Gui
             var pad = (SolutionPad)IdeApp.Workbench.Pads.SolutionPad.Content;
             if (pad != null)
             {
-                EssentialProperties.IsRefreshingTree = true;
+                FilterSettings.IsRefreshingTree = true;
                 pad.CollapseTree();
                 var root = pad.GetRootNode();
                 if (root != null)
@@ -57,7 +93,7 @@ namespace VisualStudioMac.SolutionTreeFilter.Gui
                     root.Expanded = true;
                     SolutionTreeExtensions.ExpandAll(root);
                 }
-                EssentialProperties.IsRefreshingTree = false;
+                FilterSettings.IsRefreshingTree = false;
             }
             ExpandOnlyCSharpProjects();
         }
@@ -74,8 +110,9 @@ namespace VisualStudioMac.SolutionTreeFilter.Gui
 
         public void LoadProperties()
         {
-            filterEntry.Text = EssentialProperties.SolutionFilter;
-            projectsEntry.Text = EssentialProperties.ExpandFilter;
+            filterEntry.Text = FilterSettings.SolutionFilter;
+            projectsEntry.Text = FilterSettings.ExpandFilter;
+            doubleClickToPinCheckbutton.Active = FilterSettings.DoubleClickToPin;
         }
 
         protected void collapseButton_Clicked(object sender, EventArgs e)
@@ -128,7 +165,7 @@ namespace VisualStudioMac.SolutionTreeFilter.Gui
 
                 //IdeApp.Workbench.StatusBar.ShowMessage("Filtering......");
 
-                EssentialProperties.SolutionFilter = filterEntry.Text;
+                FilterSettings.SolutionFilter = filterEntry.Text;
 
                 if (string.IsNullOrEmpty(filterEntry.Text))
                 {
@@ -140,7 +177,7 @@ namespace VisualStudioMac.SolutionTreeFilter.Gui
                 if (pad == null)
                     return;
 
-                EssentialProperties.IsRefreshingTree = true;
+                FilterSettings.IsRefreshingTree = true;
                 pad.CollapseTree();
                 ctx.SetProgressFraction(0.35);
                 var root = pad.GetRootNode();
@@ -153,7 +190,7 @@ namespace VisualStudioMac.SolutionTreeFilter.Gui
                     SolutionTreeExtensions.ExpandAll(root);
                     ctx.SetProgressFraction(1);
                 }
-                EssentialProperties.IsRefreshingTree = false;
+                FilterSettings.IsRefreshingTree = false;
             }
             ctx.EndProgress();
             IdeApp.Workbench.StatusBar.ShowReady();
@@ -163,13 +200,13 @@ namespace VisualStudioMac.SolutionTreeFilter.Gui
 
         private void ExpandOnlyCSharpProjects()
         {
-            EssentialProperties.ExpandFilter = projectsEntry.Text;
+            FilterSettings.ExpandFilter = projectsEntry.Text;
 
             var pad = IdeApp.Workbench.Pads.SolutionPad.Content as SolutionPad;
             if (pad == null)
                 return;
 
-            EssentialProperties.IsRefreshingTree = true;
+            FilterSettings.IsRefreshingTree = true;
             pad.CollapseTree();
             var root = pad.GetRootNode();
             if (root != null)
@@ -179,15 +216,7 @@ namespace VisualStudioMac.SolutionTreeFilter.Gui
                 root.Expanded = true;
                 SolutionTreeExtensions.ExpandOnlyCSharpProjects(root);
             }
-            EssentialProperties.IsRefreshingTree = false;
+            FilterSettings.IsRefreshingTree = false;
         }
-
-        //public void OnDocumentClosed()
-        //{
-        //    if (IdeApp.Workbench.Documents is null || IdeApp.Workbench.Documents.Count == 0)
-        //    {
-        //        FilterSolutionPad();
-        //    }
-        //}
     }
 }

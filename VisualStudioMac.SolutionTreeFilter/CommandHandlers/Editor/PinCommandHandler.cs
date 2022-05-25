@@ -4,6 +4,7 @@ using MonoDevelop.Ide.Gui.Pads;
 using MonoDevelop.Projects;
 using VisualStudioMac.SolutionTreeFilter.Gui;
 using VisualStudioMac.SolutionTreeFilter.Helpers;
+using VisualStudioMac.SolutionTreeFilter.Helpers.ExtensionSettings;
 
 namespace VisualStudioMac.SolutionTreeFilter.CommandHandlers.Editor
 {
@@ -16,9 +17,8 @@ namespace VisualStudioMac.SolutionTreeFilter.CommandHandlers.Editor
             if (IdeApp.Workbench.ActiveDocument != null && IdeApp.Workbench.ActiveDocument.IsFile)
             {
                 info.Enabled = true;
-                var isPinned = EssentialProperties.IsPinned(IdeApp.Workbench.ActiveDocument);
-                info.Text = isPinned ? "Pinned on Solution Tree" : "Pin on Solution Tree";
-                info.Checked = isPinned;
+                var isPinned = FilterSettings.IsPinned(IdeApp.Workbench.ActiveDocument);
+                info.Text = isPinned ? "Unpin from Solution Tree" : "Pin on Solution Tree";
             }
         }
 
@@ -26,11 +26,11 @@ namespace VisualStudioMac.SolutionTreeFilter.CommandHandlers.Editor
         {
             if (IdeApp.Workbench.ActiveDocument != null && IdeApp.Workbench.ActiveDocument.IsFile)
             {
-                var isPinned = EssentialProperties.IsPinned(IdeApp.Workbench.ActiveDocument);
+                var isPinned = FilterSettings.IsPinned(IdeApp.Workbench.ActiveDocument);
                 if (isPinned)
-                    EssentialProperties.RemovePinnedDocument(IdeApp.Workbench.ActiveDocument);
+                    FilterSettings.RemovePinnedDocument(IdeApp.Workbench.ActiveDocument);
                 else
-                    EssentialProperties.AddPinnedDocument(IdeApp.Workbench.ActiveDocument);
+                    FilterSettings.AddPinnedDocument(IdeApp.Workbench.ActiveDocument);
 
                 var pad = (SolutionPad)IdeApp.Workbench.Pads.SolutionPad.Content;
                 if (pad == null)

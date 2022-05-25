@@ -2,6 +2,7 @@
 using MonoDevelop.Ide.Gui.Components;
 using MonoDevelop.Projects;
 using VisualStudioMac.SolutionTreeFilter.Helpers;
+using VisualStudioMac.SolutionTreeFilter.Helpers.ExtensionSettings;
 
 namespace VisualStudioMac.SolutionTreeFilter.NodeBuilderExtensions
 {
@@ -14,7 +15,7 @@ namespace VisualStudioMac.SolutionTreeFilter.NodeBuilderExtensions
         {
             base.GetNodeAttributes(parentNode, dataObject, ref attributes);
 
-            if (EssentialProperties.SolutionFilterArray.Length == 0)
+            if (!FilterSettings.Initialized || FilterSettings.SolutionFilterArray.Length == 0)
                 return;
 
             if (dataObject is DotNetProject project)

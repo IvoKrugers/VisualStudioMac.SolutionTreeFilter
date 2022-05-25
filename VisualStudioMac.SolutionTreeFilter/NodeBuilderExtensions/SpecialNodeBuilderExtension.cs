@@ -1,6 +1,7 @@
 ﻿using System;
 using MonoDevelop.Ide.Gui.Components;
 using VisualStudioMac.SolutionTreeFilter.Helpers;
+using VisualStudioMac.SolutionTreeFilter.Helpers.ExtensionSettings;
 
 namespace VisualStudioMac.SolutionTreeFilter.NodeBuilderExtensions
 {
@@ -25,7 +26,7 @@ namespace VisualStudioMac.SolutionTreeFilter.NodeBuilderExtensions
         {
             base.GetNodeAttributes(parentNode, dataObject, ref attributes);
 
-            if (!string.IsNullOrEmpty(EssentialProperties.SolutionFilter))
+            if (!string.IsNullOrEmpty(FilterSettings.SolutionFilter))
             {
                 attributes = NodeAttributes.Hidden;
             }

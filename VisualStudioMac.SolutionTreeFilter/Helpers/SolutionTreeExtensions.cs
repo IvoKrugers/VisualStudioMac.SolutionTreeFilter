@@ -3,6 +3,7 @@ using MonoDevelop.Ide.Gui.Components;
 using MonoDevelop.Ide.Gui.Pads.ProjectPad;
 using MonoDevelop.Projects;
 using VisualStudioMac.SolutionTreeFilter.Cache;
+using VisualStudioMac.SolutionTreeFilter.Helpers.ExtensionSettings;
 
 namespace VisualStudioMac.SolutionTreeFilter.Helpers
 {
@@ -28,9 +29,9 @@ namespace VisualStudioMac.SolutionTreeFilter.Helpers
 
                     if (node.DataItem is Project)
                     {
-                        if (!string.IsNullOrWhiteSpace(EssentialProperties.ExpandFilter))
+                        if (!string.IsNullOrWhiteSpace(FilterSettings.ExpandFilter))
                         {
-                            foreach (var item in EssentialProperties.ExpandFilterArray)
+                            foreach (var item in FilterSettings.ExpandFilterArray)
                             {
                                 if (wso.Name.ToLower().Contains(item))
                                 {
@@ -144,7 +145,7 @@ namespace VisualStudioMac.SolutionTreeFilter.Helpers
                 {
                     if (node.DataItem is Project proj)
                     {
-                        var filter = EssentialProperties.ExpandFilterArray;
+                        var filter = FilterSettings.ExpandFilterArray;
                         if (filter.Length == 0)
                         {
                             node.MoveToFirstChild();

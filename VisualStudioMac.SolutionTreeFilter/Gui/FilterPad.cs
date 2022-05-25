@@ -7,6 +7,7 @@ using MonoDevelop.Components;
 using MonoDevelop.Ide;
 using MonoDevelop.Ide.Gui;
 using VisualStudioMac.SolutionTreeFilter.Helpers;
+using VisualStudioMac.SolutionTreeFilter.Helpers.ExtensionSettings;
 using Xwt.Mac;
 
 namespace VisualStudioMac.SolutionTreeFilter.Gui
@@ -50,7 +51,7 @@ namespace VisualStudioMac.SolutionTreeFilter.Gui
 
             StartListeningForWorkspaceChanges();
 
-            this.Window.Title = $"Solution Filter ({Constants.Version})";
+            this.Window.Title = $"Solution Filter";
         }
 
         void StartListeningForWorkspaceChanges()
@@ -83,7 +84,7 @@ namespace VisualStudioMac.SolutionTreeFilter.Gui
                 _semaphore.Wait();
                 try
                 {
-                    if (!EssentialProperties.Initialized)
+                    if (!FilterSettings.Initialized)
                         return;
 
                     if (sender is Workbench wb)
@@ -106,7 +107,7 @@ namespace VisualStudioMac.SolutionTreeFilter.Gui
                             var isPinnedProp = tab.GetType().GetProperty("IsPinned");
                             bool isPinned = (bool)isPinnedProp.GetValue(tab, null);
                             if (isPinned)
-                                EssentialProperties.AddPinnedDocument(IdeApp.Workbench.Documents[index]);
+                                FilterSettings.AddPinnedDocument(IdeApp.Workbench.Documents[index]);
                             index++;
                         }
                     }
@@ -122,14 +123,18 @@ namespace VisualStudioMac.SolutionTreeFilter.Gui
 
         internal void Initialize(bool forceReload = false)
         {
-            PropertyService.Instance.Init(IdeApp.Workspace.CurrentSelectedSolution);
+            if (IdeApp.Workspace.CurrentSelectedSolution is null)
+                return;
+
+
+            SolutionExtensionSettings.Instance.Init(IdeApp.Workspace.CurrentSelectedSolution);
 
             if (this.widget is null)
                 return;
 
             var filterChanged =
-                widget.FilterText != EssentialProperties.SolutionFilter
-                || widget.ExpandText != EssentialProperties.ExpandFilter;
+                widget.FilterText != FilterSettings.SolutionFilter
+                || widget.ExpandText != FilterSettings.ExpandFilter;
 
             widget.LoadProperties();
 

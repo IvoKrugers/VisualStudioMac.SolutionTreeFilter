@@ -19,26 +19,10 @@ namespace VisualStudioMac.SolutionTreeFilter.Gui
 
         private Button applyButton;
 
-        //private HBox hbox2;
-
-        //private CheckButton oneClickCheckbutton;
-
-        //private Button newReleaseAvailableButton;
-
-        //private HBox hbox3;
-
-        //private Label label2;
-
-        //private Entry collapseEntry;
-
-        //private Button collapseButton;
-
-        //private HBox hbox4;
+        private CheckBox doubleClickToPinCheckbutton;
 
         private Button resetPinnedButton;
-
-        //private Button ReloadPropertiesButton;
-
+        
         private Button pinOpenDocumentsButton;
 
         protected virtual void Build()
@@ -140,7 +124,7 @@ namespace VisualStudioMac.SolutionTreeFilter.Gui
 
             // Expand projects section
             var buttonsHBox = new HBox();
-            pinOpenDocumentsButton = new Button(ImageService.GetIcon(Stock.PinDown, Gtk.IconSize.Button), "Pin All Open Documents")
+            pinOpenDocumentsButton = new Button(ImageService.GetIcon(Stock.PinDown, Gtk.IconSize.Button), "Pin All Open Docs")
             {
                 MarginLeft = 6,
                 MarginRight = 2,
@@ -156,8 +140,17 @@ namespace VisualStudioMac.SolutionTreeFilter.Gui
                 HorizontalPlacement = WidgetPlacement.Center,
             };
 
+            doubleClickToPinCheckbutton = new CheckBox("Double-Click to Pin")
+            {
+                MarginLeft = 6,
+                MarginRight = 6,
+                ExpandHorizontal = true,
+                HorizontalPlacement = WidgetPlacement.Center,
+            };
+
             buttonsHBox.PackStart(pinOpenDocumentsButton);
-            buttonsHBox.PackStart(new FrameBox(), true, true);
+            //buttonsHBox.PackStart(new FrameBox(), true, true);
+            buttonsHBox.PackStart(doubleClickToPinCheckbutton, true, true);
             buttonsHBox.PackEnd(resetPinnedButton);
 
             var mainVBox = new VBox();

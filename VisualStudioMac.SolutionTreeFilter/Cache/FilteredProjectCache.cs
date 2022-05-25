@@ -6,6 +6,7 @@ using MonoDevelop.Core;
 using MonoDevelop.Ide.Gui.Pads.ProjectPad;
 using MonoDevelop.Projects;
 using VisualStudioMac.SolutionTreeFilter.Helpers;
+using VisualStudioMac.SolutionTreeFilter.Helpers.ExtensionSettings;
 
 namespace VisualStudioMac.SolutionTreeFilter.Cache
 {
@@ -27,7 +28,7 @@ namespace VisualStudioMac.SolutionTreeFilter.Cache
         {
             lock (_projectsDictionary)
             {
-                var filter = EssentialProperties.SolutionFilter;
+                var filter = FilterSettings.SolutionFilter;
 
                 // check if cache is still current according to filter used
                 if (_lastFilter != filter)
@@ -46,8 +47,8 @@ namespace VisualStudioMac.SolutionTreeFilter.Cache
                         return;
                 }
                 _projectsDictionary[project.Name] = DateTime.Now;
-                var filterArray = EssentialProperties.SolutionFilterArray;
-                var pinnedDocuments = EssentialProperties.PinnedDocuments;
+                var filterArray = FilterSettings.SolutionFilterArray;
+                var pinnedDocuments = FilterSettings.PinnedDocuments;
 
                 // clear all entries related to project.
                 ClearCacheOfProject(project);

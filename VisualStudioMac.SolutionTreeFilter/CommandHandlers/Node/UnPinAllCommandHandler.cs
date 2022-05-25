@@ -3,6 +3,7 @@ using MonoDevelop.Core;
 using MonoDevelop.Ide;
 using VisualStudioMac.SolutionTreeFilter.Gui;
 using VisualStudioMac.SolutionTreeFilter.Helpers;
+using VisualStudioMac.SolutionTreeFilter.Helpers.ExtensionSettings;
 
 namespace VisualStudioMac.SolutionTreeFilter.CommandHandlers.Node
 {
@@ -16,7 +17,7 @@ namespace VisualStudioMac.SolutionTreeFilter.CommandHandlers.Node
 
         protected override void Run()
         {
-            EssentialProperties.ClearPinnedDocuments();
+            FilterSettings.ClearPinnedDocuments();
             var pad = (FilterPad)IdeApp.Workbench.GetPad<FilterPad>().Content;
             if (pad == null)
                 return;

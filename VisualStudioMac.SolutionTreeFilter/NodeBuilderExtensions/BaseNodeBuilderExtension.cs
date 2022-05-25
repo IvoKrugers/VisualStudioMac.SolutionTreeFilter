@@ -5,6 +5,7 @@ using MonoDevelop.Ide.Gui.Pads.ProjectPad;
 using MonoDevelop.Projects;
 using VisualStudioMac.SolutionTreeFilter.Cache;
 using VisualStudioMac.SolutionTreeFilter.Helpers;
+using VisualStudioMac.SolutionTreeFilter.Helpers.ExtensionSettings;
 
 namespace VisualStudioMac.SolutionTreeFilter.NodeBuilderExtensions
 {
@@ -15,7 +16,7 @@ namespace VisualStudioMac.SolutionTreeFilter.NodeBuilderExtensions
 
         public override void BuildNode(ITreeBuilder treeBuilder, object dataObject, NodeInfo nodeInfo)
         {
-            if (!string.IsNullOrEmpty(EssentialProperties.SolutionFilter))
+            if (FilterSettings.Initialized && !string.IsNullOrEmpty(FilterSettings.SolutionFilter))
             {
                 if (!FilteredProjectCache.IsProjectItemEnabled(dataObject))
                     nodeInfo.Style = NodeInfo.LabelStyle.Disabled;

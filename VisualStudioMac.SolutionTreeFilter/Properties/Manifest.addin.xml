@@ -35,7 +35,7 @@
 					id="VisualStudioMac.SolutionTreeFilter.CommandHandlers.Node.UnPinAllCommandHandler"
 					defaultHandler="VisualStudioMac.SolutionTreeFilter.CommandHandlers.Node.UnPinAllCommandHandler"
 					_description="Unpin all documents from the Solution Tree"
-					_label="Unpin all documents"/>
+					_label="Reset all pinned documents"/>
 		</Category>
 	</Extension>
 
@@ -55,7 +55,7 @@
 	<Extension path="/MonoDevelop/Ide/ContextMenu/ProjectPad">
 		<Condition id="ItemType" value="MonoDevelop.Projects.ProjectFile">
 			<CommandItem id="VisualStudioMac.SolutionTreeFilter.CommandHandlers.Node.PinCommandHandler" />
-			<CommandItem id="VisualStudioMac.SolutionTreeFilter.CommandHandlers.Node.UnPinAllCommandHandler" />
+			<!--<CommandItem id="VisualStudioMac.SolutionTreeFilter.CommandHandlers.Node.UnPinAllCommandHandler" />-->
 		</Condition>
 		<Condition id="ItemType" value="MonoDevelop.Projects.Solution">
             <CommandItem id="VisualStudioMac.SolutionTreeFilter.CommandHandlers.Node.UnPinAllCommandHandler" />

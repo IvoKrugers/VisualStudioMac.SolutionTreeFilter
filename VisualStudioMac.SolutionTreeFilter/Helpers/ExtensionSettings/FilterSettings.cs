@@ -1,21 +1,34 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Microsoft.VisualStudio.Utilities.Internal;
+using MonoDevelop.Core;
 
-namespace VisualStudioMac.SolutionTreeFilter.Helpers
+namespace VisualStudioMac.SolutionTreeFilter.Helpers.ExtensionSettings
 {
-    public static class EssentialProperties
+    public static class FilterSettings
     {
+        private const string FIRSTTIME_KEY = "SolutionFilter_FirstTime";
+        private const string DOUBLECLICKTOPIN_KEY = "SolutionFilter_DoubleClickToPin";
+
         private const string SOLUTIONFILTER_KEY = "Filter";
         private const string SOLUTIONPINNEDDOCUMENTS_KEY = "PinnedDocs";
         private const string SOLUTIONEXPANDFILTER_KEY = "ProjectsToExpand";
-        //private const string ONECLICKSHOWFILE_KEY = "OneClickShowFile";
-        //private const string CONSOLEFILTER_KEY = "ConsoleFilter";
 
         private static char[] _delimiterChars = { ' ', ';', ':', '\t', '\n' };
 
-        public static bool Initialized => PropertyService.Instance.Initialized;
+        public static bool Initialized => SolutionExtensionSettings.Instance.Initialized;
+
+        public static bool IsFirstTime
+        {
+            get => PropertyService.GlobalInstance.Get(FIRSTTIME_KEY, true);
+            set => PropertyService.GlobalInstance.Set(FIRSTTIME_KEY, value);
+        }
+
+        public static bool DoubleClickToPin
+        {
+            get => PropertyService.GlobalInstance.Get(DOUBLECLICKTOPIN_KEY, false);
+            set => PropertyService.GlobalInstance.Set(DOUBLECLICKTOPIN_KEY, value);
+        }
 
         public static string SolutionFilter
         {
@@ -76,7 +89,7 @@ namespace VisualStudioMac.SolutionTreeFilter.Helpers
                 char[] _delimiter = { ';' };
                 return commaSepString.Split(_delimiter).ToList();
             }
-            set => Set(SOLUTIONPINNEDDOCUMENTS_KEY, value.Join(";"));
+            set => Set(SOLUTIONPINNEDDOCUMENTS_KEY, string.Join(";",value));
         }
 
         public static bool IsPinned(MonoDevelop.Ide.Gui.Document document)
@@ -84,7 +97,7 @@ namespace VisualStudioMac.SolutionTreeFilter.Helpers
 
         public static bool IsPinned(MonoDevelop.Projects.ProjectFile projectFile)
         => PinnedDocuments.Contains(projectFile.FilePath.FullPath);
-            
+
 
         private static string BranchnameToKey(string branchName)
         {
@@ -104,15 +117,15 @@ namespace VisualStudioMac.SolutionTreeFilter.Helpers
 
         private static void Set(string key, string value)
         {
-            PropertyService.Instance.Set(ConcatGitBranchName(key), value);
-            PropertyService.Instance.Set(key, value);
+            SolutionExtensionSettings.Instance.Set(ConcatGitBranchName(key), value);
+            SolutionExtensionSettings.Instance.Set(key, value);
         }
 
         private static string Get(string key, string defaultValue)
         {
-            var result = PropertyService.Instance.Get(ConcatGitBranchName(key), defaultValue);
+            var result = SolutionExtensionSettings.Instance.Get(ConcatGitBranchName(key), defaultValue);
             if (result == defaultValue)
-                result = PropertyService.Instance.Get(key, defaultValue);
+                result = SolutionExtensionSettings.Instance.Get(key, defaultValue);
             return result;
         }
 
@@ -152,39 +165,13 @@ namespace VisualStudioMac.SolutionTreeFilter.Helpers
             }
         }
 
-        //public static string[] ExcludedExtensionsFromOneClick = { ".storyboard", ".xib", ".png", ".ttf" };
-
         public static string[] ExcludedExtensionsFromExpanding = { ".xaml.cs", ".designer.cs" };
-
-        //public static bool OneClickShowFile
-        //{
-        //    get => PropertyService.Instance.Get(ONECLICKSHOWFILE_KEY, true);
-        //    set => PropertyService.Instance.Set(ONECLICKSHOWFILE_KEY, value);
-        //}
 
         public static bool IsRefreshingTree { get; set; }
 
-        //public static string ConsoleFilter
-        //{
-        //    get => Get(CONSOLEFILTER_KEY, string.Empty);
-        //    set => Set(CONSOLEFILTER_KEY, value.ToLower());
-        //}
-
-        //public static string[] ConsoleFilterArray
-        //{
-        //    get
-        //    {
-        //        var filterText = ConsoleFilter;
-        //        if (string.IsNullOrEmpty(filterText))
-        //            return new string[0];
-
-        //        return filterText.Split(_delimiterChars);
-        //    }
-        //}
-
         public static void PurgeProperties()
         {
-            var keys = PropertyService.Instance.GetAllKeys() ?? new List<string>();
+            var keys = SolutionExtensionSettings.Instance.GetAllKeys() ?? new List<string>();
             var branches = GitHelper.GetLocalBranches() ?? new List<string>();
             branches = branches.Select(b => BranchnameToKey(b)).ToList();
 
@@ -192,10 +179,10 @@ namespace VisualStudioMac.SolutionTreeFilter.Helpers
             {
                 if (branches.FirstOrDefault(b => key.Contains(b)) is null)
                 {
-                    PropertyService.Instance.RemoveKey(key);
+                    SolutionExtensionSettings.Instance.RemoveKey(key);
                 }
             }
-            PropertyService.Instance.WriteProperties();
+            SolutionExtensionSettings.Instance.WriteProperties();
         }
     }
 }
