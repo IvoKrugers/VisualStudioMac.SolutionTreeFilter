@@ -156,9 +156,9 @@ namespace VisualStudioMac.SolutionTreeFilter.Gui
             var mainVBox = new VBox();
             mainVBox.PackStart(filterHBox, false, false);
             mainVBox.PackStart(filterEntry, true, true);
+            mainVBox.PackStart(buttonsHBox, false, false);
             mainVBox.PackStart(expandHBox, false, false);
             mainVBox.PackStart(projectsEntry, false, true);
-            mainVBox.PackStart(buttonsHBox, false, false);
 
             // Force a height
             var mainFrame = new FrameBox(mainVBox) { MinHeight = 250 };
