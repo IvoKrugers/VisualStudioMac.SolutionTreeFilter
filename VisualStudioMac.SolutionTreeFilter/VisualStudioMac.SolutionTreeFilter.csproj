@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="UTF-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project Sdk="Microsoft.NET.Sdk">
 	<PropertyGroup>
 		<TargetFramework>net6.0</TargetFramework>
@@ -18,5 +18,15 @@
 			<HintPath>\Applications\Visual Studio %28Preview%29.app\Contents\MonoBundle\Xamarin.Mac.dll</HintPath>
 			<Private>False</Private>
 		</Reference>
+		<Reference Include="Xwt">
+		  <HintPath>..\..\..\..\..\Applications\Visual Studio %28Preview%29.app\Contents\MonoBundle\Xwt.dll</HintPath>
+		</Reference>
+		<Reference Include="Xwt.XamMac">
+		  <HintPath>..\..\..\..\..\Applications\Visual Studio %28Preview%29.app\Contents\MonoBundle\Xwt.XamMac.dll</HintPath>
+		</Reference>
+	</ItemGroup>
+	<ItemGroup>
+	  <None Remove="Xwt" />
+	  <None Remove="Xwt.XamMac" />
 	</ItemGroup>
 </Project>

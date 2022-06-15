@@ -44,7 +44,7 @@ namespace VisualStudioMac.SolutionTreeFilter.Gui
                 VerticalPlacement = WidgetPlacement.Center,
             };
 
-            filterClearButton = new Button(ImageService.GetIcon("gtk-delete", Gtk.IconSize.Button))
+            filterClearButton = new Button(ImageService.GetIcon("gtk-delete", Xwt.IconSize.Small))
             {
                 MarginLeft = 0,
                 MarginRight = 2,
@@ -54,7 +54,7 @@ namespace VisualStudioMac.SolutionTreeFilter.Gui
                 Style = ButtonStyle.Borderless,
                 TooltipText = "Clear"
             };
-            var refreshButton = new Button(ImageService.GetIcon("gtk-refresh", Gtk.IconSize.Menu))
+            var refreshButton = new Button(ImageService.GetIcon("gtk-refresh", Xwt.IconSize.Small))
             {
                 MarginLeft = 0,
                 MarginRight = 6,
@@ -124,7 +124,7 @@ namespace VisualStudioMac.SolutionTreeFilter.Gui
 
             // Expand projects section
             var buttonsHBox = new HBox();
-            pinOpenDocumentsButton = new Button(ImageService.GetIcon(Stock.PinDown, Gtk.IconSize.Button), "Pin All Open Docs")
+            pinOpenDocumentsButton = new Button(ImageService.GetIcon(Stock.PinDown, Xwt.IconSize.Small), "Pin All Open Docs")
             {
                 MarginLeft = 6,
                 MarginRight = 2,
@@ -132,7 +132,7 @@ namespace VisualStudioMac.SolutionTreeFilter.Gui
                 HorizontalPlacement = WidgetPlacement.Center,
             };
 
-            resetPinnedButton = new Button(ImageService.GetIcon(Stock.PinUp, Gtk.IconSize.Button), "Unpin All")
+            resetPinnedButton = new Button(ImageService.GetIcon(Stock.PinUp, Xwt.IconSize.Small), "Unpin All")
             {
                 MarginLeft = 2,
                 MarginRight = 6,
