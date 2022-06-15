@@ -1,6 +1,7 @@
 ﻿using Mono.Addins;
 using Mono.Addins.Description;
 using VisualStudioMac.SolutionTreeFilter;
+using System.Runtime.Versioning;
 
 [assembly: Addin(
     "SolutionTreeFilter",
@@ -17,3 +18,5 @@ using VisualStudioMac.SolutionTreeFilter;
 [assembly: AddinDependency("::MonoDevelop.Core", MonoDevelop.BuildInfo.Version)]
 [assembly: AddinDependency("::MonoDevelop.Ide", MonoDevelop.BuildInfo.Version)]
 [assembly: AddinDependency("::MonoDevelop.TextEditor", MonoDevelop.BuildInfo.Version)]
+
+[assembly: SupportedOSPlatform("macos10.15")]
