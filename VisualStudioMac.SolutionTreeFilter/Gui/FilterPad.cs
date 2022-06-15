@@ -88,7 +88,7 @@ namespace VisualStudioMac.SolutionTreeFilter.Gui
                         return;
 
                     if (sender is Workbench wb)
-                        sender = wb.RootWindow;
+                        sender = wb.Window;
 
                     var activeWorkbenchWindowProp = sender.GetType().GetProperty("ActiveWorkbenchWindow");
                     var activeWorkbenchWindow = activeWorkbenchWindowProp.GetValue(sender, null);
