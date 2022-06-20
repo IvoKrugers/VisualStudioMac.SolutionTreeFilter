@@ -102,8 +102,8 @@ namespace VisualStudioMac.SolutionTreeFilter.Gui
                 ExpandHorizontal = true,
                 HorizontalPlacement = WidgetPlacement.Fill,
                 VerticalPlacement = WidgetPlacement.Center,
-                MarginLeft = 8,
-                MarginRight = 8,
+                MarginLeft = 2,
+                MarginRight = 2,
                 MultiLine = false,
                 PlaceholderText = ""
             };
@@ -111,7 +111,7 @@ namespace VisualStudioMac.SolutionTreeFilter.Gui
             applyButton = new Button(ImageService.GetIcon("gtk-refresh"))
             {
                 TooltipText = "Apply the Project to expand",
-                MarginLeft = 2,
+                MarginLeft = 0,
                 MarginRight = 6,
                 ExpandHorizontal = false,
                 HorizontalPlacement = WidgetPlacement.End,
@@ -120,10 +120,15 @@ namespace VisualStudioMac.SolutionTreeFilter.Gui
             };
 
             expandHBox.PackStart(expandLabel);
+            expandHBox.PackStart(projectsEntry, true, true);
             expandHBox.PackEnd(applyButton);
 
             // Expand projects section
-            var buttonsHBox = new HBox();
+            var buttonsHBox = new HBox()
+            {
+                MarginBottom = 6
+            };
+
             pinOpenDocumentsButton = new Button(ImageService.GetIcon(Stock.PinDown, Xwt.IconSize.Small), "Pin All Open Docs")
             {
                 MarginLeft = 6,
@@ -156,9 +161,9 @@ namespace VisualStudioMac.SolutionTreeFilter.Gui
             var mainVBox = new VBox();
             mainVBox.PackStart(filterHBox, false, false);
             mainVBox.PackStart(filterEntry, true, true);
-            mainVBox.PackStart(buttonsHBox, false, false);
             mainVBox.PackStart(expandHBox, false, false);
-            mainVBox.PackStart(projectsEntry, false, true);
+            mainVBox.PackStart(buttonsHBox, false, false);
+            //mainVBox.PackStart(projectsEntry, false, true);
 
             // Force a height
             var mainFrame = new FrameBox(mainVBox) { MinHeight = 250 };
