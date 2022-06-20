@@ -6,6 +6,7 @@ Visual Studio Mac 2022 extension that adds a Pad to filter the solution tree by 
 
 The filtering is done by partial file or foldername comparing. Its real power can be found in its ability to filter by multiple search terms seperated by a space. This way you can specify a subset of files/folder to work on. Oh, did I mention that it is not necessary to write file/foldernames out in full.
 
+![Filtering the solution tree.](/Art/Filtering.gif)
 
 ## Projects to expand
 
