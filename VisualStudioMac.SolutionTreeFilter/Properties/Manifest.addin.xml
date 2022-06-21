@@ -1,5 +1,15 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
-<ExtensionModel>
+
+<Addin name        = "SolutionTree Filter"
+       id          = "SolutionTreeFilter"
+       namespace   = "VisualStudioMac"
+       author      = "Ivo Krugers"
+       copyright   = "MIT X11"
+       url         = "https://github.com/IvoKrugers/VisualStudioMac.SolutionTreeFilter"
+       description = "This extension adds a Pad which allows you to filter the solution tree by multiple search terms.\n\nby Ivo Krugers"
+       category    = "IDE extensions"
+       version     = "17.3.3">
+
 	<Runtime>
 		<Import assembly="VisualStudioMac.SolutionTreeFilter.dll" />
 	</Runtime>
@@ -71,4 +81,4 @@
         </Condition>-->
 	</Extension>
 	
-</ExtensionModel>
+</Addin>

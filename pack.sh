@@ -16,9 +16,9 @@ mono /Applications/Visual\ Studio.app/Contents/Resources/lib/monodevelop/bin/vst
 # Uninstall
 /Applications/Visual\ Studio\ \(Preview\).app/Contents/MacOS/vstool setup uninstall VisualStudioMac.SolutionTreeFilter -y
 
-# Install
-for filename in *.mpack;
-do
-  echo "$filename"
-  /Applications/Visual\ Studio\ \(Preview\).app/Contents/MacOS/vstool setup install "$PROJECTFOLDER/$filename" -y
-done
+# # Install
+# for filename in *.mpack;
+# do
+#   echo "$filename"
+#   /Applications/Visual\ Studio\ \(Preview\).app/Contents/MacOS/vstool setup install "$PROJECTFOLDER/$filename" -y
+# done
