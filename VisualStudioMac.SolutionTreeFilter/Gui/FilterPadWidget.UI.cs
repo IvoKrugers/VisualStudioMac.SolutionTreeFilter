@@ -86,6 +86,7 @@ namespace VisualStudioMac.SolutionTreeFilter.Gui
 
             // Expand projects section
             var expandHBox = new HBox();
+
             var expandLabel = new Label("Projects to Expand:")
             {
                 MarginLeft = 6,
