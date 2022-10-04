@@ -23,17 +23,27 @@ namespace VisualStudioMac.SolutionTreeFilter.Gui
             SetFocus();
             MinHeight = 130;
 
-            filterEntry.Changed += FilterEntry_Changed; ;
+            enabledCheckBox.Active = FilterSettings.Enabled;
+
+            filterEntry.Changed += FilterEntry_Changed;
+            enabledCheckBox.Clicked += EnabledCheckBox_Clicked;
             filterClearButton.Clicked += FilterClearButton_Clicked;
             applyButton.Clicked += ApplyButton_Clicked;
             pinOpenDocumentsButton.Clicked += PinOpenDocumentsButton_Clicked;
             resetPinnedButton.Clicked += ResetPinnedButton_Clicked;
-            doubleClickToPinCheckbutton.Clicked += DoubleClickToPinCheckbutton_Clicked;
+            doubleClickToPinCheckBox.Clicked += DoubleClickToPinCheckbutton_Clicked;
+
+        }
+
+        private void EnabledCheckBox_Clicked(object sender, EventArgs e)
+        {
+            FilterSettings.Enabled = enabledCheckBox.Active;
+            FilterSolutionPad();
         }
 
         private void DoubleClickToPinCheckbutton_Clicked(object sender, EventArgs e)
         {
-            FilterSettings.DoubleClickToPin = doubleClickToPinCheckbutton.Active;
+            FilterSettings.DoubleClickToPin = doubleClickToPinCheckBox.Active;
         }
 
         private void ResetPinnedButton_Clicked(object sender, EventArgs e)
@@ -112,7 +122,7 @@ namespace VisualStudioMac.SolutionTreeFilter.Gui
         {
             filterEntry.Text = FilterSettings.SolutionFilter;
             projectsEntry.Text = FilterSettings.ExpandFilter;
-            doubleClickToPinCheckbutton.Active = FilterSettings.DoubleClickToPin;
+            doubleClickToPinCheckBox.Active = FilterSettings.DoubleClickToPin;
         }
 
         protected void collapseButton_Clicked(object sender, EventArgs e)
@@ -167,7 +177,7 @@ namespace VisualStudioMac.SolutionTreeFilter.Gui
 
                 FilterSettings.SolutionFilter = filterEntry.Text;
 
-                if (string.IsNullOrEmpty(filterEntry.Text))
+                if (string.IsNullOrEmpty(filterEntry.Text) || !enabledCheckBox.Active)
                 {
                     ExpandOnlyCSharpProjects();
                     return;

@@ -16,7 +16,7 @@ namespace VisualStudioMac.SolutionTreeFilter.NodeBuilderExtensions
 
         public override void BuildNode(ITreeBuilder treeBuilder, object dataObject, NodeInfo nodeInfo)
         {
-            if (FilterSettings.Initialized && !string.IsNullOrEmpty(FilterSettings.SolutionFilter))
+            if (FilterSettings.Initialized && !string.IsNullOrEmpty(FilterSettings.SolutionFilter) && FilterSettings.Enabled)
             {
                 if (!FilteredProjectCache.IsProjectItemEnabled(dataObject))
                     nodeInfo.Style = NodeInfo.LabelStyle.Disabled;

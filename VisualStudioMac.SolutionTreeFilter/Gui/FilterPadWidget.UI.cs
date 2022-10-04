@@ -13,13 +13,15 @@ namespace VisualStudioMac.SolutionTreeFilter.Gui
 
         private TextEntry filterEntry;
 
+        private CheckBox enabledCheckBox;
+
         private Button filterClearButton;
 
         private TextEntry projectsEntry;
 
         private Button applyButton;
 
-        private CheckBox doubleClickToPinCheckbutton;
+        private CheckBox doubleClickToPinCheckBox;
 
         private Button resetPinnedButton;
         
@@ -44,6 +46,14 @@ namespace VisualStudioMac.SolutionTreeFilter.Gui
                 VerticalPlacement = WidgetPlacement.Center,
             };
 
+            enabledCheckBox = new CheckBox("Enabled")
+            {
+                MarginLeft = 6,
+                MarginRight = 6,
+                ExpandHorizontal = true,
+                HorizontalPlacement = WidgetPlacement.Center,
+            };
+
             filterClearButton = new Button(ImageService.GetIcon("gtk-delete", Xwt.IconSize.Small))
             {
                 MarginLeft = 0,
@@ -66,6 +76,7 @@ namespace VisualStudioMac.SolutionTreeFilter.Gui
             };
 
             filterHBox.PackStart(filterLabel);
+            filterHBox.PackStart(enabledCheckBox);
             filterHBox.PackEnd(refreshButton);
             filterHBox.PackEnd(filterClearButton);
 
@@ -146,7 +157,7 @@ namespace VisualStudioMac.SolutionTreeFilter.Gui
                 HorizontalPlacement = WidgetPlacement.Center,
             };
 
-            doubleClickToPinCheckbutton = new CheckBox("Double-Click to Pin")
+            doubleClickToPinCheckBox = new CheckBox("Double-Click to Pin")
             {
                 MarginLeft = 6,
                 MarginRight = 6,
@@ -156,7 +167,7 @@ namespace VisualStudioMac.SolutionTreeFilter.Gui
 
             buttonsHBox.PackStart(pinOpenDocumentsButton);
             //buttonsHBox.PackStart(new FrameBox(), true, true);
-            buttonsHBox.PackStart(doubleClickToPinCheckbutton, true, true);
+            buttonsHBox.PackStart(doubleClickToPinCheckBox, true, true);
             buttonsHBox.PackEnd(resetPinnedButton);
 
             var mainVBox = new VBox();

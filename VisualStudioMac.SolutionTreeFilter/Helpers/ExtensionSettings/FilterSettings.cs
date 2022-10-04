@@ -24,6 +24,8 @@ namespace VisualStudioMac.SolutionTreeFilter.Helpers.ExtensionSettings
             set => PropertyService.GlobalInstance.Set(FIRSTTIME_KEY, value);
         }
 
+        public static bool Enabled { get; set; } = true;
+
         public static bool DoubleClickToPin
         {
             get => PropertyService.GlobalInstance.Get(DOUBLECLICKTOPIN_KEY, false);
@@ -89,7 +91,7 @@ namespace VisualStudioMac.SolutionTreeFilter.Helpers.ExtensionSettings
                 char[] _delimiter = { ';' };
                 return commaSepString.Split(_delimiter).ToList();
             }
-            set => Set(SOLUTIONPINNEDDOCUMENTS_KEY, string.Join(";",value));
+            set => Set(SOLUTIONPINNEDDOCUMENTS_KEY, string.Join(";", value));
         }
 
         public static bool IsPinned(MonoDevelop.Ide.Gui.Document document)
@@ -112,20 +114,20 @@ namespace VisualStudioMac.SolutionTreeFilter.Helpers.ExtensionSettings
             var branchName = GitHelper.GetCurrentBranch() ?? "";
             branchName = BranchnameToKey(branchName);
 
-            return $"{key}{(string.IsNullOrEmpty(branchName) ? "" : $"_{ branchName}")}";
+            return $"{key}{(string.IsNullOrEmpty(branchName) ? "" : $"_{branchName}")}";
         }
 
         private static void Set(string key, string value)
         {
             SolutionExtensionSettings.Instance.Set(ConcatGitBranchName(key), value);
-            SolutionExtensionSettings.Instance.Set(key, value);
+            //SolutionExtensionSettings.Instance.Set(key, value);
         }
 
         private static string Get(string key, string defaultValue)
         {
             var result = SolutionExtensionSettings.Instance.Get(ConcatGitBranchName(key), defaultValue);
-            if (result == defaultValue)
-                result = SolutionExtensionSettings.Instance.Get(key, defaultValue);
+            //if (result == defaultValue)
+            //    result = SolutionExtensionSettings.Instance.Get(key, defaultValue);
             return result;
         }
 
@@ -175,11 +177,14 @@ namespace VisualStudioMac.SolutionTreeFilter.Helpers.ExtensionSettings
             var branches = GitHelper.GetLocalBranches() ?? new List<string>();
             branches = branches.Select(b => BranchnameToKey(b)).ToList();
 
-            foreach (var key in keys)
+            if (branches.Count > 0)
             {
-                if (branches.FirstOrDefault(b => key.Contains(b)) is null)
+                foreach (var key in keys)
                 {
-                    SolutionExtensionSettings.Instance.RemoveKey(key);
+                    if (branches.FirstOrDefault(b => key.Contains(b)) is null)
+                    {
+                        SolutionExtensionSettings.Instance.RemoveKey(key);
+                    }
                 }
             }
             SolutionExtensionSettings.Instance.WriteProperties();

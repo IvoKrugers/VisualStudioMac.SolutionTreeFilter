@@ -26,7 +26,7 @@ namespace VisualStudioMac.SolutionTreeFilter.NodeBuilderExtensions
         {
             base.GetNodeAttributes(parentNode, dataObject, ref attributes);
 
-            if (!string.IsNullOrEmpty(FilterSettings.SolutionFilter))
+            if (!string.IsNullOrEmpty(FilterSettings.SolutionFilter) || FilterSettings.Enabled)
             {
                 attributes = NodeAttributes.Hidden;
             }

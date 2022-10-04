@@ -8,7 +8,7 @@
        url         = "https://github.com/IvoKrugers/VisualStudioMac.SolutionTreeFilter"
        description = "This extension adds a Pad which allows you to filter the solution tree by multiple search terms.\n\nby Ivo Krugers"
        category    = "IDE extensions"
-       version     = "17.3.4">
+       version     = "17.3.6">
 
 	<Runtime>
 		<Import assembly="VisualStudioMac.SolutionTreeFilter.dll" />
