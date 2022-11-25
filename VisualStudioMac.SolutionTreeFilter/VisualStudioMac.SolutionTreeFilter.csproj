@@ -13,20 +13,26 @@
 		</Compile>
 	</ItemGroup>
 	<ItemGroup>
-		<PackageReference Include="Microsoft.VisualStudioMac.Sdk" Version="17.0.0-preview.7955" />
-		<Reference Include="Xamarin.Mac">
-			<HintPath>\Applications\Visual Studio %28Preview%29.app\Contents\MonoBundle\Xamarin.Mac.dll</HintPath>
+		<PackageReference Include="Microsoft.VisualStudioMac.Sdk" Version="17.4.0" />
+		
+		<!--<Reference Include="Xamarin.Mac">
+			<HintPath>/usr/local/share/dotnet/packs/Microsoft.macOS.Ref/12.0.100-rc.1.1534/ref/net6.0/Xamarin.Mac.dll</HintPath>
 			<Private>False</Private>
-		</Reference>
+		</Reference>-->
+
 		<Reference Include="Xwt">
-		  <HintPath>..\..\..\..\..\Applications\Visual Studio %28Preview%29.app\Contents\MonoBundle\Xwt.dll</HintPath>
+		  <HintPath>..\..\..\..\..\Applications\Visual Studio.app\Contents\MonoBundle\Xwt.dll</HintPath>
 		</Reference>
 		<Reference Include="Xwt.XamMac">
-		  <HintPath>..\..\..\..\..\Applications\Visual Studio %28Preview%29.app\Contents\MonoBundle\Xwt.XamMac.dll</HintPath>
+		  <HintPath>..\..\..\..\..\Applications\Visual Studio.app\Contents\MonoBundle\Xwt.XamMac.dll</HintPath>
 		</Reference>
 	</ItemGroup>
 	<ItemGroup>
 	  <None Remove="Xwt" />
 	  <None Remove="Xwt.XamMac" />
+	  <None Remove="MonoDevelop.DotNetCore" />
+	</ItemGroup>
+	<ItemGroup>
+	  <AddinReference Include="MonoDevelop.DotNetCore" />
 	</ItemGroup>
 </Project>

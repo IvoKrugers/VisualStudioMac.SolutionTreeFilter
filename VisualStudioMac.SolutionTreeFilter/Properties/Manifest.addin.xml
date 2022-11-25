@@ -6,13 +6,15 @@
        author      = "Ivo Krugers"
        copyright   = "MIT X11"
        url         = "https://github.com/IvoKrugers/VisualStudioMac.SolutionTreeFilter"
-       description = "This extension adds a Pad which allows you to filter the solution tree by multiple search terms.\n\nby Ivo Krugers"
-       category    = "IDE extensions"
-       version     = "17.3.4">
+       description = "This extension adds a Pad which allows you to filter the solution tree by multiple search terms.
 
-	<Runtime>
+By Ivo Krugers"
+       category    = "IDE extensions"
+       version     = "17.4">
+
+	<!--<Runtime>
 		<Import assembly="VisualStudioMac.SolutionTreeFilter.dll" />
-	</Runtime>
+	</Runtime>-->
 
 	<Extension path="/MonoDevelop/Ide/StartupHandlers">
 		<Class class="VisualStudioMac.SolutionTreeFilter.CommandHandlers.StartupCommandHandler" />

@@ -20,7 +20,7 @@ namespace VisualStudioMac.SolutionTreeFilter.NodeBuilderExtensions
         {
             base.GetNodeAttributes(parentNode, dataObject, ref attributes);
 
-            if (!FilterSettings.Initialized || FilterSettings.SolutionFilterArray.Length == 0)
+            if (!FilterSettings.Initialized || FilterSettings.SolutionFilterArray.Length == 0 || !FilterSettings.Enabled)
                 return;
 
             if (dataObject is ProjectFile file)

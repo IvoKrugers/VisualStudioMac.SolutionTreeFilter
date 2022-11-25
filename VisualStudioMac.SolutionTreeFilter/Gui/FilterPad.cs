@@ -23,7 +23,7 @@ namespace VisualStudioMac.SolutionTreeFilter.Gui
             {
                 if (control == null)
                 {
-                    widget = new FilterPadWidget() ;
+                    widget = new FilterPadWidget();
                     control = new XwtControl(widget);
                 }
                 // Returning control does not work.
@@ -57,9 +57,9 @@ namespace VisualStudioMac.SolutionTreeFilter.Gui
         void StartListeningForWorkspaceChanges()
         {
             IdeApp.Workbench.ActiveDocumentChanged += (sender, e) => StorePinnedDocuments(sender);
-            IdeApp.Workspace.SolutionLoaded += (sender, e) => Initialize();
+            IdeApp.Workspace.SolutionLoaded += (sender, e) => SolutionLoaded();
             IdeApp.Workspace.CurrentSelectedSolutionChanged += (sender, e) => Initialize();
-            IdeApp.FocusIn += (sender, e) => { log("FocusIn"); Initialize(true); };
+            //IdeApp.FocusIn += (sender, e) => { log("FocusIn"); Initialize(false); };
         }
 
         private void log([CallerMemberName] string memberName = "", [CallerLineNumber] int ln = 0)
@@ -121,6 +121,14 @@ namespace VisualStudioMac.SolutionTreeFilter.Gui
             });
         }
 
+        internal void SolutionLoaded()
+        {
+            Initialize();
+
+            // TODO Activate this and check it for correctness 
+            ////FilterSettings.PurgeProperties();
+        }
+
         internal void Initialize(bool forceReload = false)
         {
             if (IdeApp.Workspace.CurrentSelectedSolution is null)
@@ -132,9 +140,7 @@ namespace VisualStudioMac.SolutionTreeFilter.Gui
             if (this.widget is null)
                 return;
 
-            var filterChanged =
-                widget.FilterText != FilterSettings.SolutionFilter
-                || widget.ExpandText != FilterSettings.ExpandFilter;
+            var filterChanged = widget.FilterText != FilterSettings.SolutionFilter || widget.ExpandText != FilterSettings.ExpandFilter;
 
             widget.LoadProperties();
 
