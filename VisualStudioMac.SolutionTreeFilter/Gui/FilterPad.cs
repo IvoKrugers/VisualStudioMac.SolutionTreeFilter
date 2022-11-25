@@ -59,7 +59,7 @@ namespace VisualStudioMac.SolutionTreeFilter.Gui
             IdeApp.Workbench.ActiveDocumentChanged += (sender, e) => StorePinnedDocuments(sender);
             IdeApp.Workspace.SolutionLoaded += (sender, e) => SolutionLoaded();
             IdeApp.Workspace.CurrentSelectedSolutionChanged += (sender, e) => Initialize();
-            IdeApp.FocusIn += (sender, e) => { log("FocusIn"); Initialize(false); };
+            //IdeApp.FocusIn += (sender, e) => { log("FocusIn"); Initialize(false); };
         }
 
         private void log([CallerMemberName] string memberName = "", [CallerLineNumber] int ln = 0)

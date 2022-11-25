@@ -28,5 +28,9 @@
 	<ItemGroup>
 	  <None Remove="Xwt" />
 	  <None Remove="Xwt.XamMac" />
+	  <None Remove="MonoDevelop.DotNetCore" />
+	</ItemGroup>
+	<ItemGroup>
+	  <AddinReference Include="MonoDevelop.DotNetCore" />
 	</ItemGroup>
 </Project>
