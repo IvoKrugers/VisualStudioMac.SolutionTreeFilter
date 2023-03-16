@@ -18,6 +18,7 @@ namespace VisualStudioMac.SolutionTreeFilter.Helpers
             if (typename == "Solution")
             {
                 node.ExpandToNode();
+                node.SaveState();
             }
 
             if (node.HasChildren())
@@ -81,6 +82,7 @@ namespace VisualStudioMac.SolutionTreeFilter.Helpers
             {
                 node.ExpandToNode();
                 node.Expanded = true;
+                node.SaveState();
             }
 
             if (node.HasChildren())
@@ -104,6 +106,7 @@ namespace VisualStudioMac.SolutionTreeFilter.Helpers
                 return;
 
             node.Expanded = false;
+            node.SaveState();
 
             if (node.HasChildren())
             {
@@ -111,6 +114,7 @@ namespace VisualStudioMac.SolutionTreeFilter.Helpers
                 while (continueLoop)
                 {
                     node.Expanded = false;
+                    node.SaveState();
                     continueLoop = node.MoveNext();
                 }
 
@@ -136,6 +140,7 @@ namespace VisualStudioMac.SolutionTreeFilter.Helpers
             if (typename == "Solution")
             {
                 node.ExpandToNode();
+                node.SaveState();
             }
 
             if (node.HasChildren())
@@ -150,6 +155,7 @@ namespace VisualStudioMac.SolutionTreeFilter.Helpers
                         {
                             node.MoveToFirstChild();
                             node.ExpandToNode();
+                            node.SaveState();
                             node.MoveToParent();
                         }
                         else
@@ -160,6 +166,7 @@ namespace VisualStudioMac.SolutionTreeFilter.Helpers
                                 {
                                     node.MoveToFirstChild();
                                     node.ExpandToNode();
+                                    node.SaveState();
                                     node.MoveToParent();
                                     break;
                                 }

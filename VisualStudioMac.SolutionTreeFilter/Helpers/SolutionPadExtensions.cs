@@ -20,13 +20,8 @@ namespace VisualStudioMac.SolutionTreeFilter.Helpers
             if (pad is null)
                 return;
 
-            //if (pad.Control is ExtensibleTreeView tree)
-            //{
-            //    tree.CollapseTree();
-            //}
-            
             var root = pad.GetRootNode();
-            if (root != null && pad.Control.GetType() == typeof(ExtensibleTreeView))
+            if (root != null )//&& pad.Control.GetType() == typeof(ExtensibleTreeView))
             {
                 root.CollapseAll();
             }

@@ -27,6 +27,11 @@ namespace VisualStudioMac.SolutionTreeFilter.NodeBuilderExtensions
             {
                 if (!FilteredProjectCache.IsProjectItemVisible(file))
                     attributes = NodeAttributes.Hidden;
+
+                else if (file.ProjectVirtualPath.ToString().Contains( "CareReportService"))
+                {
+                    System.Diagnostics.Debug.WriteLine(file.ProjectVirtualPath.ToString());
+                }
             }
         }
 
@@ -40,6 +45,8 @@ namespace VisualStudioMac.SolutionTreeFilter.NodeBuilderExtensions
 
                 if (isObjectPinned)
                 {
+                    nodeInfo.SecondaryLabelSize = NodeInfo.LabelSize.Small;
+                    nodeInfo.SecondaryLabelColor = Xwt.Drawing.Colors.DarkRed;
                     nodeInfo.SecondaryLabel = $"{nodeInfo.SecondaryLabel}{" [Pinned]"}";
                 }
             }

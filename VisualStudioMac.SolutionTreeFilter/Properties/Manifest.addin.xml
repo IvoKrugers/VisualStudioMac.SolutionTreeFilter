@@ -10,7 +10,7 @@
 
 By Ivo Krugers"
        category    = "IDE extensions"
-       version     = "17.4">
+       version     = "17.5.2">
 
 	<!--<Runtime>
 		<Import assembly="VisualStudioMac.SolutionTreeFilter.dll" />

@@ -222,9 +222,14 @@ namespace VisualStudioMac.SolutionTreeFilter.Gui
             if (root != null)
             {
                 root.Expanded = false;
+                //pad.GetTreeView()
                 pad.GetTreeView().RefreshNode(root);
+                pad.GetTreeView().RefreshTree();
+
                 root.Expanded = true;
                 SolutionTreeExtensions.ExpandOnlyCSharpProjects(root);
+                pad.GetTreeView().SaveTreeState();
+                //pad.GetTreeView().
             }
             FilterSettings.IsRefreshingTree = false;
         }
